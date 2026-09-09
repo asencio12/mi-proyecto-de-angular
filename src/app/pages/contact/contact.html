@@ -1,0 +1,29 @@
+<button>{{textButton}}</button>
+
+@for (i of data; track i.creditId) {
+  <article class="container">
+    <!-- Columna Izquierda: Perfil -->
+    <div class="item">
+      <h1>Perfil</h1>
+      <h3>{{i.firstName}} {{i.secondName}} {{i.surname}} {{i.secondLastName}}</h3>
+      <p>Fecha de Nacimiento: {{i.birthdate}}</p>
+      <p>Edad: {{ 2026 - $any(i.birthdate.slice(0, 4)) }} años</p>
+      <p>{{i.email}}</p>
+    </div>
+
+    <!-- Columna Derecha: Historial Crediticio -->
+   <div class="item right">
+  <h1>H.CRÉDITO</h1>
+  @for (item of i.creditHistory; track item.pastCreditId) {
+    <div class="history-card">
+      <p><strong>ID:</strong> {{ item.pastCreditId }}</p>
+      <p><strong>Monto:</strong> Q{{ item.amount }}</p>
+      <p><strong>Estado:</strong> {{ item.status }}</p>
+      <p><strong>Comportamiento:</strong> {{ item.behavior }}</p>
+    </div>
+  } @empty {
+    <p>sin información</p>
+  }
+</div>
+  </article>
+}
