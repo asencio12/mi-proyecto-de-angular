@@ -1,36 +1,38 @@
-<p>recipes-list works!</p>
+<h3>Selección de filtros</h3>
 
-<section>
-  <h3>Selección de filtros</h3>
-  <label> Por nombre
-    <input type="radio" value="NAME" [(ngModel)]="filterType">
-  </label>
-  <label> Por nivel de dificultad
-    <input type="radio" value="DIFFICULTY" [(ngModel)]="filterType">
-  </label>
-  <p>El tipo de filtro seccionado es: {{ filterType }}</p>
+<!-- Radio buttons vinculados a filterType -->
+<label>
+  <input type="radio" name="filterType" value="NAME" [(ngModel)]="filterType"> Por nombre
+</label>
+<label>
+  <input type="radio" name="filterType" value="DIFFICULTY" [(ngModel)]="filterType"> Por nivel de dificultad
+</label>
 
-  <label>
-    Nombre a buscar
-    <input type="text" placeholder="Ingrese el nombre de la receta" [(ngModel)]="_name">
-  </label>
+<p>El tipo de filtro seleccionado es: {{ filterType }}</p>
+
+<div>
+  <label>Nombre a buscar </label>
+  <input type="text" [(ngModel)]="_name">
   <p>El valor actual del input por búsqueda de nombre es: {{ _name }}</p>
+</div>
 
-  <label>
-    Opciones de dificultad
-    <select [(ngModel)]="_difficulty">
-      <option value="">Seleccione una opción</option>
-      <option value="easy">Fácil</option>
-      <option value="medium">Medio</option>
-    </select>
-  </label>
-
+<div>
+  <label>Opciones de dificultad </label>
+  <select [(ngModel)]="_difficulty">
+    <option value="">Seleccione una opción</option>
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Hard">Hard</option>
+  </select>
   <p>El valor actual del input por dificultad es: {{ _difficulty }}</p>
-</section>
+</div>
 
-<br>
+<!-- 3. Un solo botón para ejecutar el filtrado -->
+<button (click)="filterRecipes()">Filtrar</button>
 
-<table border="1" cellpadding="5" cellspacing="0">
+<br><br>
+
+<table border="1">
   <thead>
     <tr>
       <th>ID</th>
@@ -40,7 +42,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (recipe of recipesList.recipes; track recipe.id) {
+    @for (recipe of filteredRecipesList; track recipe.id) {
       <tr>
         <td>{{ recipe.id }}</td>
         <td>{{ recipe.name }}</td>
