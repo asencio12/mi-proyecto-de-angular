@@ -1,0 +1,55 @@
+<p>recipes-list works!</p>
+
+<section>
+  <h3>Selección de filtros</h3>
+  <label> Por nombre
+    <input type="radio" value="NAME" [(ngModel)]="filterType">
+  </label>
+  <label> Por nivel de dificultad
+    <input type="radio" value="DIFFICULTY" [(ngModel)]="filterType">
+  </label>
+  <p>El tipo de filtro seccionado es: {{ filterType }}</p>
+
+  <label>
+    Nombre a buscar
+    <input type="text" placeholder="Ingrese el nombre de la receta" [(ngModel)]="_name">
+  </label>
+  <p>El valor actual del input por búsqueda de nombre es: {{ _name }}</p>
+
+  <label>
+    Opciones de dificultad
+    <select [(ngModel)]="_difficulty">
+      <option value="">Seleccione una opción</option>
+      <option value="easy">Fácil</option>
+      <option value="medium">Medio</option>
+    </select>
+  </label>
+
+  <p>El valor actual del input por dificultad es: {{ _difficulty }}</p>
+</section>
+
+<br>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>DIFFICULTY</th>
+      <th>ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (recipe of recipesList.recipes; track recipe.id) {
+      <tr>
+        <td>{{ recipe.id }}</td>
+        <td>{{ recipe.name }}</td>
+        <td>{{ recipe.difficulty }}</td>
+        <td>
+          <a [routerLink]="['/recipes-detail', recipe.id]">View details (from tag a)</a>
+          <button (click)="viewDetails(recipe.id)">View details (from function)</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
